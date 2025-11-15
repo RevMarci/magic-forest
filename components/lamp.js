@@ -39,12 +39,14 @@ export class Lamp {
 
         // HELPERS FOR THE LIGHTS
 
-        /*const spotLightHelper = new THREE.SpotLightHelper(this.sLightMesh);
-        scene.add(spotLightHelper);*/
+        // TODO: Ha helper benne van akkor jó a világítás, ha kiveszem elromlik
 
-        const sphereSize = 0.2;
+        const spotLightHelper = new THREE.SpotLightHelper(this.sLightMesh);
+        scene.add(spotLightHelper);
+
+        /*const sphereSize = 0.2;
         const pointLightHelper = new THREE.PointLightHelper(this.pLightMesh, sphereSize);
-        scene.add(pointLightHelper);
+        scene.add(pointLightHelper);*/
     }
 
     top() {
@@ -169,5 +171,27 @@ export class Lamp {
         const baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
 
         return baseMesh;
+    }
+}
+
+export class LampFactory {
+    constructor(groundSize, amount) {
+        this.groundSize = groundSize;
+        this.amount = amount;
+    }
+
+    addToScene(scene) {
+        for (let i = 0; i < this.amount; i++) {
+            const lamp = new Lamp(
+                this.getPosition(),
+                this.getPosition()
+            );
+
+            lamp.addToScene(scene);
+        }
+    }
+
+    getPosition() {
+        return (Math.random() * this.groundSize) - (this.groundSize / 2);
     }
 }

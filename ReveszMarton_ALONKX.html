@@ -33,7 +33,7 @@
             import * as THREE from 'three';
             import { TrackballControls } from 'trackballcontrols';
             import { Tree, TreeFactory } from 'tree';
-            import { Lamp } from 'lamp';
+            import { Lamp, LampFactory } from 'lamp';
 
             // Globális változók
             let WIDTH, HEIGHT, aspectRatio;
@@ -75,14 +75,19 @@
                 //
                 scene.add(ground(groundSize));
 
-                const tree2 = new Tree(5, -5);
-                tree2.addToScene(scene);
-// -------------------------------------------------------------- TREE FACTORY
-                // const treeFactory = new TreeFactory(groundSize, 30);
-                //treeFactory.addToScene(scene);
+                // -------------------------------------------------------------- TREE FACTORY
+                //const tree2 = new Tree(5, -5);
+                //tree2.addToScene(scene);
+                const treeFactory = new TreeFactory(groundSize, 30);
+                treeFactory.addToScene(scene);
 
-                const lampPole = new Lamp(0,0);
-                lampPole.addToScene(scene);
+                // -------------------------------------------------------------- LAMP FACTORY
+                //const lampPole = new Lamp(0,0);
+                //lampPole.addToScene(scene);
+                //const lampPole2 = new Lamp(3,3);
+                //lampPole2.addToScene(scene);
+                const lampFactory = new LampFactory(groundSize, 3);
+                lampFactory.addToScene(scene);
 
                 let boxGeometry = new THREE.BoxGeometry(2, 2, 2);
                 let boxMaterial = new THREE.MeshPhongMaterial({
