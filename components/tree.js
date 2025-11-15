@@ -28,7 +28,7 @@ export class Tree {
 
         trunkGeometry.translate(
             this.positionX,
-            3,
+            (this.height / 2) - 1,
             this.positionZ
         );
 
@@ -41,6 +41,9 @@ export class Tree {
         } );
 
         const trunkMesh = new THREE.Mesh(trunkGeometry, trunkMaterial);
+
+        trunkMesh.castShadow = true;
+        trunkMesh.receiveShadow = true;
 
         return trunkMesh;
     }

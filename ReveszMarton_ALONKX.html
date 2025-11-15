@@ -33,6 +33,7 @@
             import * as THREE from 'three';
             import { TrackballControls } from 'trackballcontrols';
             import { Tree, TreeFactory } from 'tree';
+            import { Lamp } from 'lamp';
 
             // Globális változók
             let WIDTH, HEIGHT, aspectRatio;
@@ -73,14 +74,15 @@
 
                 //
                 scene.add(ground(groundSize));
-                const tree = new Tree(0, 0);
-                tree.addToScene(scene);
 
-                //const tree2 = new Tree(50, 0);
-                //tree2.addToScene(scene);
+                const tree2 = new Tree(5, -5);
+                tree2.addToScene(scene);
+// -------------------------------------------------------------- TREE FACTORY
+                // const treeFactory = new TreeFactory(groundSize, 30);
+                //treeFactory.addToScene(scene);
 
-                const treeFactory = new TreeFactory(groundSize, 30);
-                treeFactory.addToScene(scene);
+                const lampPole = new Lamp(0,0);
+                lampPole.addToScene(scene);
 
                 let boxGeometry = new THREE.BoxGeometry(2, 2, 2);
                 let boxMaterial = new THREE.MeshPhongMaterial({
@@ -96,32 +98,13 @@
                 boxMesh.receiveShadow = true;
                 scene.add(boxMesh);
 
-                let ambientLight = new THREE.AmbientLight(0x111111, 2);
+                let ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
                 scene.add(ambientLight);
 
                 let dLight = new THREE.DirectionalLight(0xffffff, 0.3);
                 dLight.position.set(5, 10, 5);
                 dLight.target.position.set(0, 0, 0);
-                scene.add(dLight);
-
-                let pLight = new THREE.PointLight(0xaaaaff, 1000);
-                pLight.position.set(5, 5, 5);
-                pLight.castShadow = true;
-                scene.add(pLight);
-
-                let sphereSize = 0.2;
-                let pointLightHelper = new THREE.PointLightHelper(pLight, sphereSize);
-                scene.add(pointLightHelper);
-
-                let sLight = new THREE.SpotLight(0xffaaaa, 1000);
-                sLight.position.set(-15, 20, 0);
-                sLight.angle = Math.PI / 8;
-                sLight.castShadow = true;
-                sLight.target.position.set(-10, 5, -5);
-                scene.add(sLight);
-
-                let spotLightHelper = new THREE.SpotLightHelper(sLight);
-                scene.add(spotLightHelper);
+                //scene.add(dLight);
                 //
 
                 // Az ablak későbbi átméretezése esetén visszahívható függvény megadása
