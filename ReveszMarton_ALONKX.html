@@ -41,6 +41,8 @@
             let scene, camera;
             let controls;
 
+            var lampPole = null;
+
             const groundSize = 100;
 
             init();
@@ -82,12 +84,12 @@
                 //treeFactory.addToScene(scene);
 
                 // -------------------------------------------------------------- LAMP FACTORY
-                //const lampPole = new Lamp(0,0);
-                //lampPole.addToScene(scene);
+                lampPole = new Lamp(0,0);
+                lampPole.addToScene(scene);
                 //const lampPole2 = new Lamp(3,3);
                 //lampPole2.addToScene(scene);
-                const lampFactory = new LampFactory(groundSize, 3);
-                lampFactory.addToScene(scene);
+                //const lampFactory = new LampFactory(groundSize, 3);
+                //lampFactory.addToScene(scene);
 
                 let boxGeometry = new THREE.BoxGeometry(2, 2, 2);
                 let boxMaterial = new THREE.MeshPhongMaterial({
@@ -140,6 +142,9 @@
                 requestAnimationFrame(animate);
                 // Kameramozgás vezérlése
                 controls.update();
+
+                lampPole.animate();
+
                 // Új képkocka rajzolása
                 render();
             }

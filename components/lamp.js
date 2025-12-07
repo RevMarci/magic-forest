@@ -2,6 +2,9 @@ import * as THREE from 'three';
 
 export class Lamp {
     constructor(positionX, positionZ, height = 5) {
+        this.lightStrenght = Math.random() * 450 + 50;  // 50-500
+        this.lightChangePositive = Math.random() < 0.5;
+
         this.positionX = positionX;
         this.positionZ = positionZ;
 
@@ -50,6 +53,26 @@ export class Lamp {
         scene.add(pointLightHelper);*/
     }
 
+    animate() {
+        let change = Math.random() * 10;
+        
+        if (this.lightChangePositive) {
+            this.lightStrenght += change;
+            if (this.lightStrenght > 500) {
+                this.lightChangePositive = false;
+            }
+        } else {
+            this.lightStrenght -= change;
+            if (this.lightStrenght < 100) {
+                this.lightChangePositive = true;
+            }
+        }
+
+        if (this.pLightMesh) {
+            this.pLightMesh.intensity = this.lightStrenght;
+        }
+    }
+
     top() {
         const radialSegments = 4;
         const width = 0.8;
@@ -96,7 +119,7 @@ export class Lamp {
     }
 
     pLight() {
-        const light = new THREE.PointLight(this.lightColor, 100);
+        const light = new THREE.PointLight(this.lightColor, this.lightStrenght);
 
         const heightFromGround = this.height.base + this.height.pole + this.height.glass;
         light.position.set(
