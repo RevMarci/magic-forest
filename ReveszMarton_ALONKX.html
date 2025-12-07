@@ -29,6 +29,7 @@
                     "wolf": "./components/wolf.js",
                     "mushroom": "./components/mushroom.js",
                     "mushroomBlend": "./components/blender/gomba.obj",
+                    "stone": "./components/stone.js",
 
                     "OBJLoader": "./js-r178/examples/jsm/loaders/OBJLoader.js"
                 }
@@ -42,6 +43,7 @@
             import { Lamp, LampFactory } from 'lamp';
             import { Mushroom, MushroomFactory } from 'mushroom';
             import { Wolf } from 'wolf';
+            import { Stone } from 'stone';
 
             // Globális változók
             let WIDTH, HEIGHT, aspectRatio;
@@ -49,6 +51,7 @@
             let scene, camera;
             let controls;
 
+            var stone = null;
             var lampPole = null;
             var lampPole2 = null;
             var lampPole3 = null;
@@ -113,6 +116,10 @@
                 //
                 scene.add(ground(groundSize));
 
+                // -------------------------------------------------------------- STONE
+                stone = new Stone(0,0);
+                stone.addToScene(scene);
+
                 // -------------------------------------------------------------- TREE FACTORY
                 //const tree2 = new Tree(5, -5);
                 //tree2.addToScene(scene);
@@ -173,6 +180,7 @@
                 // Kameramozgás vezérlése
                 controls.update();
 
+                stone.animate();
                 lampPole.animate();
                 lampPole2.animate();
                 lampPole3.animate();
