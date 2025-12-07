@@ -2,7 +2,8 @@ import * as THREE from 'three';
 import mergeGeometries from 'BufferGeometryUtils';
 
 export class Tree {
-    constructor(positionX, positionZ, height = 8) {
+    constructor(texture, positionX, positionZ, height = 8) {
+        this.texture = texture;
         this.positionX = positionX;
         this.positionZ = positionZ;
         this.height = height;
@@ -83,7 +84,7 @@ export class Tree {
         const mergedLeafsGeometry = mergeGeometries(leafGroup);
 
         const leafMaterial = new THREE.MeshPhongMaterial( {
-            color: 0x4C7746,
+            map: this.texture,
             shininess: 20,
             specular: 0x111111,
             side: THREE.FrontSide,
@@ -101,7 +102,8 @@ export class Tree {
 }
 
 export class TreeFactory {
-    constructor(groundSize, amount) {
+    constructor(texture, groundSize, amount) {
+        this.texture = texture;
         this.groundSize = groundSize;
         this.amount = amount;
     }
@@ -109,6 +111,7 @@ export class TreeFactory {
     addToScene(scene) {
         for (let i = 0; i < this.amount; i++) {
             const tree = new Tree(
+                this.texture,
                 this.getPosition(),
                 this.getPosition()
             );

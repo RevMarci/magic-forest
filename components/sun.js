@@ -28,7 +28,8 @@ export class Sun {
 
         scene.add(this.sLight.target);
 
+        // Helper
         const spotLightHelper = new THREE.SpotLightHelper( this.sLight );
-        scene.add( spotLightHelper );
+        //scene.add( spotLightHelper );
     }
 }

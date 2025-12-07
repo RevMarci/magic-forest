@@ -135,6 +135,10 @@
             grassTexture.wrapS = THREE.RepeatWrapping;
             grassTexture.wrapT = THREE.RepeatWrapping;
             grassTexture.repeat.set(100,100);
+            const leafTexture = textureLoader.load('texture/leaf.jpg');
+            leafTexture.wrapS = THREE.RepeatWrapping;
+            leafTexture.wrapT = THREE.RepeatWrapping;
+            leafTexture.repeat.set(10,10);
 
 
             init();
@@ -180,7 +184,7 @@
                 // -------------------------------------------------------------- TREE FACTORY
                 //const tree2 = new Tree(5, -5);
                 //tree2.addToScene(scene);
-                const treeFactory = new TreeFactory(groundSize, 15);
+                const treeFactory = new TreeFactory(leafTexture, groundSize, 15);
                 treeFactory.addToScene(scene);
 
                 // -------------------------------------------------------------- LAMP FACTORY
