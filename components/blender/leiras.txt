@@ -1,0 +1,9 @@
+Főbb lépések
+Delete - alap kocka törlése
+Shift+A->mesh->uv sphere - Gomba kapal hozzáadása
+S->Z - Kapal lapítása
+Tab(Edit mode)->kapal tetejének kijelölése->G->Z - Kalap tetejének megemelése
+Shift+A->mesh->cylinder - Törzs hozzáadás
+S->Z - megnyújtás
+S->Shift+Z - törzs vastagéágának állítása
+Kattintás kalapra->G->Z - Kalap pozíciójának emelése
