@@ -31,7 +31,7 @@ export class Lamp {
 
     addToScene(scene) {
         scene.add(this.topMesh);
-        scene.add(this.sLightMesh);
+        //scene.add(this.sLightMesh);
         scene.add(this.pLightMesh);
         scene.add(this.glassMesh);
         scene.add(this.poleMesh);
@@ -39,12 +39,13 @@ export class Lamp {
 
         // HELPERS FOR THE LIGHTS
 
-        // TODO: Ha helper benne van akkor jó a világítás, ha kiveszem elromlik
+        // NOTE: Alapból volt egy lefelé néző spotlight is a lámpában,
+        //       de ez törölve lett optimalizálás miatt
 
-        const spotLightHelper = new THREE.SpotLightHelper(this.sLightMesh);
+        /*const spotLightHelper = new THREE.SpotLightHelper(this.sLightMesh);
         scene.add(spotLightHelper);
 
-        /*const sphereSize = 0.2;
+        const sphereSize = 0.2;
         const pointLightHelper = new THREE.PointLightHelper(this.pLightMesh, sphereSize);
         scene.add(pointLightHelper);*/
     }
