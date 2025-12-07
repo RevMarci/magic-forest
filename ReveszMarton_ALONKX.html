@@ -18,17 +18,16 @@
                 color: white;
                 font-family: 'Arial', sans-serif;
                 z-index: 100;
+                font-size: 14px;
             }
         
             #namepanel {
                 top: 10px;
                 left: 10px;
-                font-size: 16px;
             }
             #helpPanel {
                 top: 10px;
                 right: 10px;
-                font-size: 14px;
             }
         </style>
     </head>
@@ -42,7 +41,7 @@
         </div>
         <div id="helpPanel">
             <p>Space nyomvatartva - Varázskő animáció/fény fokozatosan fel erősödik</p>
-            
+            <p>N - Nap be/ki</p>
         </div>
 
         <script async src="./dist/es-module-shims.js"></script>
@@ -59,6 +58,7 @@
                     "mushroom": "./components/mushroom.js",
                     "mushroomBlend": "./components/blender/gomba.obj",
                     "stone": "./components/stone.js",
+                    "sun": "./components/sun.js",
 
                     "OBJLoader": "./js-r178/examples/jsm/loaders/OBJLoader.js"
                 }
@@ -73,6 +73,7 @@
             import { Mushroom, MushroomFactory } from 'mushroom';
             import { Wolf } from 'wolf';
             import { Stone } from 'stone';
+            import { Sun } from 'sun';
 
             // Globális változók
             let WIDTH, HEIGHT, aspectRatio;
@@ -152,6 +153,10 @@
                 // -------------------------------------------------------------- STONE
                 stone = new Stone(0,0);
                 stone.addToScene(scene);
+
+                // -------------------------------------------------------------- SUN
+                const sun = new Sun();
+                sun.addToScene(scene);
 
                 // -------------------------------------------------------------- TREE FACTORY
                 //const tree2 = new Tree(5, -5);
