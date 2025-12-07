@@ -23,8 +23,14 @@
                     "three": "./js-r178/build/three.module.js",
                     "trackballcontrols": "./js-r178/examples/jsm/controls/TrackballControls.js",
                     "BufferGeometryUtils": "./imported/BufferGeometryUtils.js",
+
                     "tree": "./components/tree.js",
-                    "lamp": "./components/lamp.js"
+                    "lamp": "./components/lamp.js",
+                    "wolf": "./components/wolf.js",
+                    "mushroom": "./components/mushroom.js",
+                    "mushroomBlend": "./components/blender/gomba.obj",
+
+                    "OBJLoader": "./js-r178/examples/jsm/loaders/OBJLoader.js"
                 }
             }
         </script>
@@ -34,6 +40,8 @@
             import { TrackballControls } from 'trackballcontrols';
             import { Tree, TreeFactory } from 'tree';
             import { Lamp, LampFactory } from 'lamp';
+            import { Mushroom, MushroomFactory } from 'mushroom';
+            import { Wolf } from 'wolf';
 
             // Globális változók
             let WIDTH, HEIGHT, aspectRatio;
@@ -42,8 +50,36 @@
             let controls;
 
             var lampPole = null;
+            var lampPole2 = null;
+            var lampPole3 = null;
+            var wolf = null;
 
             const groundSize = 100;
+
+
+            // LOADER
+            const manager = new THREE.LoadingManager();
+
+            manager.onStart = function (url, itemsLoaded, itemsTotal) {
+                console.log('Betöltés elkezdődött: ' + url);
+            };
+            
+            manager.onLoad = function () {
+                console.log('Minden fájl betöltve!');
+            };
+            
+            manager.onProgress = function (url, itemsLoaded, itemsTotal) {
+                console.log(`Betöltve: ${itemsLoaded} / ${itemsTotal}`);
+            };
+            
+            manager.onError = function (url) {
+                console.error('Hiba történt: ' + url);
+            };
+            
+            const textureLoader = new THREE.TextureLoader(manager);
+            
+            const wolfTexture = textureLoader.load('texture/wolf.jpg');
+
 
             init();
             // Egy képkocka rajzolása
@@ -80,38 +116,32 @@
                 // -------------------------------------------------------------- TREE FACTORY
                 //const tree2 = new Tree(5, -5);
                 //tree2.addToScene(scene);
-                //const treeFactory = new TreeFactory(groundSize, 30);
-                //treeFactory.addToScene(scene);
+                const treeFactory = new TreeFactory(groundSize, 15);
+                treeFactory.addToScene(scene);
 
                 // -------------------------------------------------------------- LAMP FACTORY
-                lampPole = new Lamp(0,0);
+                lampPole = new Lamp(10,10);
                 lampPole.addToScene(scene);
+                lampPole2 = new Lamp(-30,20);
+                lampPole2.addToScene(scene);
+                lampPole3 = new Lamp(-34,-20);
+                lampPole3.addToScene(scene);
                 //const lampPole2 = new Lamp(3,3);
                 //lampPole2.addToScene(scene);
                 //const lampFactory = new LampFactory(groundSize, 3);
                 //lampFactory.addToScene(scene);
 
-                let boxGeometry = new THREE.BoxGeometry(2, 2, 2);
-                let boxMaterial = new THREE.MeshPhongMaterial({
-                    color: 0x6b623e,
-                    shininess: 20,
-                    specular: 0x111111,
-                    side: THREE.FrontSide,
-                    wireframe: false,
-                });
-                let boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-                boxMesh.position.set(6, 1, -5);
-                boxMesh.castShadow = true;
-                boxMesh.receiveShadow = true;
-                scene.add(boxMesh);
+                // -------------------------------------------------------------- GOMBA FACTORY
+                const mushroomFactory = new MushroomFactory(groundSize, 20);
+                mushroomFactory.addToScene(scene);
+
+                // -------------------------------------------------------------- WOLF FACTORY
+                wolf = new Wolf(wolfTexture, 3,2,5);
+                wolf.addToScene(scene);
 
                 let ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
                 scene.add(ambientLight);
 
-                let dLight = new THREE.DirectionalLight(0xffffff, 0.3);
-                dLight.position.set(5, 10, 5);
-                dLight.target.position.set(0, 0, 0);
-                //scene.add(dLight);
                 //
 
                 // Az ablak későbbi átméretezése esetén visszahívható függvény megadása
@@ -144,6 +174,9 @@
                 controls.update();
 
                 lampPole.animate();
+                lampPole2.animate();
+                lampPole3.animate();
+                wolf.animate();
 
                 // Új képkocka rajzolása
                 render();
