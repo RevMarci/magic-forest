@@ -12,10 +12,39 @@
                 width: 100%;
                 height: 100%;
             }
+            #namepanel, #helpPanel {
+                position: absolute;
+                padding: 15px;
+                color: white;
+                font-family: 'Arial', sans-serif;
+                z-index: 100;
+            }
+        
+            #namepanel {
+                top: 10px;
+                left: 10px;
+                font-size: 16px;
+            }
+            #helpPanel {
+                top: 10px;
+                right: 10px;
+                font-size: 14px;
+            }
         </style>
     </head>
 
     <body>
+        <div id="namepanel">
+            Név: Révész Márton<br>
+            Neptun kód: ALONKX <br>
+            Szak: programtervező informatikus BSc <br>
+            Tanév: 2024/2025 II. félév.
+        </div>
+        <div id="helpPanel">
+            <p>Space nyomvatartva - Varázskő animáció/fény fokozatosan fel erősödik</p>
+            
+        </div>
+
         <script async src="./dist/es-module-shims.js"></script>
         <script type="importmap">
             {
@@ -82,6 +111,10 @@
             const textureLoader = new THREE.TextureLoader(manager);
             
             const wolfTexture = textureLoader.load('texture/wolf.jpg');
+            const grassTexture = textureLoader.load('texture/grass.jpg');
+            grassTexture.wrapS = THREE.RepeatWrapping;
+            grassTexture.wrapT = THREE.RepeatWrapping;
+            grassTexture.repeat.set(100,100);
 
 
             init();
@@ -198,18 +231,13 @@
 
             function ground(size) {
                 let groundGeometry = new THREE.PlaneGeometry(size, size);
-                /*let groundMaterial = new THREE.MeshBasicMaterial({
-                    color: 0x008000,
-                    wireframe: false,
-                    side: THREE.DoubleSide,
-                });*/
 
                 let groundMaterial = new THREE.MeshPhongMaterial({
-                    color: 0x008000,
+                    map: grassTexture,
                     shininess: 20,
                     specular: 0x111111,
                     side: THREE.FrontSide,
-                    wireframe: false,
+                    wireframe: false
                 });
                 let groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
                 groundMesh.receiveShadow = true;

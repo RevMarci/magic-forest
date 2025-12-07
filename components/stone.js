@@ -58,7 +58,7 @@ export class Stone {
     }
 
     animate() {
-        const disctanceSpeed = 0.05;
+        const disctanceSpeed = 0.03;
 
         if (this.isPressed) {
             // Rotate
@@ -79,7 +79,7 @@ export class Stone {
                 this.leaning *= 1.03;
             }
 
-            if (this.leaning >= 10 && this.distance < 15) {
+            if (this.leaning >= 10 && this.distance < 10) {
                 this.upConeMesh.position.y += disctanceSpeed;
                 this.downConeMesh.position.y -= disctanceSpeed;
                 this.distance += disctanceSpeed;
