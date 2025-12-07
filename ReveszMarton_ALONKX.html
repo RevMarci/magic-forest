@@ -40,8 +40,10 @@
             Tanév: 2024/2025 II. félév.
         </div>
         <div id="helpPanel">
+            <p>I - Információk megjelenítése/elrejtése</p>
             <p>Space nyomvatartva - Varázskő animáció/fény fokozatosan fel erősödik</p>
             <p>N - Nap be/ki</p>
+            <p>L - Lámpák be/ki</p>
         </div>
 
         <script async src="./dist/es-module-shims.js"></script>
@@ -66,6 +68,21 @@
         </script>
 
         <script type="module">
+            window.addEventListener('keydown', (event) => {
+                if (event.code === 'KeyI') {
+                    const namePanel = document.getElementById('namepanel');
+                    const helpPanel = document.getElementById('helpPanel');
+                    if (namePanel.style.display === 'none') {
+                        namePanel.style.display = 'block';
+                        helpPanel.style.display = 'block';
+                    } else {
+                        namePanel.style.display = 'none';
+                        helpPanel.style.display = 'none';
+                    }
+                }
+            });
+
+
             import * as THREE from 'three';
             import { TrackballControls } from 'trackballcontrols';
             import { Tree, TreeFactory } from 'tree';
@@ -86,6 +103,8 @@
             var lampPole2 = null;
             var lampPole3 = null;
             var wolf = null;
+            var wolf2 = null;
+            var wolf3 = null;
 
             const groundSize = 100;
 
@@ -183,6 +202,10 @@
                 // -------------------------------------------------------------- WOLF FACTORY
                 wolf = new Wolf(wolfTexture, 3,2,5);
                 wolf.addToScene(scene);
+                wolf2 = new Wolf(wolfTexture, 0,10,40,0.01,-70);
+                wolf2.addToScene(scene);
+                wolf3 = new Wolf(wolfTexture, -30,20,10,0.07,180);
+                wolf3.addToScene(scene);
 
                 let ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
                 scene.add(ambientLight);
@@ -223,6 +246,8 @@
                 lampPole2.animate();
                 lampPole3.animate();
                 wolf.animate();
+                wolf2.animate();
+                wolf3.animate();
 
                 // Új képkocka rajzolása
                 render();

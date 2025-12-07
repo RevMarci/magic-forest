@@ -30,6 +30,13 @@ export class Lamp {
         this.glassMesh = this.glass();
         this.poleMesh = this.pole();
         this.baseMesh = this.base();
+
+        this.on = true;
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'KeyL') {
+                this.on = !this.on;
+            }
+        });
     }
 
     addToScene(scene) {
@@ -54,6 +61,11 @@ export class Lamp {
     }
 
     animate() {
+        if (!this.on) {
+            this.pLightMesh.intensity = 0;
+            return;
+        }
+
         let change = Math.random() * 10;
         
         if (this.lightChangePositive) {
@@ -68,9 +80,7 @@ export class Lamp {
             }
         }
 
-        if (this.pLightMesh) {
-            this.pLightMesh.intensity = this.lightStrenght;
-        }
+        this.pLightMesh.intensity = this.lightStrenght;
     }
 
     top() {

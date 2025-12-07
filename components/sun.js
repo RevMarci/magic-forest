@@ -2,31 +2,33 @@ import * as THREE from 'three';
 
 export class Sun {
     constructor() {
-        this.dLight = new THREE.DirectionalLight( 0xff8888, 5 );
-        this.dLight.position.set( 100, 200, 100 );
-        this.dLight.target.position.set( 0, 0, 0 );
-        this.dLight.castShadow = true;
+        this.sLight = new THREE.SpotLight( 0xff8888, 500 );
+        this.sLight.position.set( 50, 200, 50 );
+        this.sLight.target.position.set( 0, 0, 0 );
+        this.sLight.castShadow = true;
 
-        const shadowSize = 100; 
-        this.dLight.shadow.camera.left = -shadowSize;
-        this.dLight.shadow.camera.right = shadowSize;
-        this.dLight.shadow.camera.top = shadowSize;
-        this.dLight.shadow.camera.bottom = -shadowSize;
-        
-        this.dLight.visible = false; 
+        this.sLight.angle = Math.PI / 4; 
 
+        this.sLight.distance = 300;
+        this.sLight.decay = 0.5;
+
+        this.sLight.shadow.mapSize.width = 1024;
+        this.sLight.shadow.mapSize.height = 1024;
+
+        this.sLight.visible = false; 
         window.addEventListener('keydown', (event) => {
             if (event.code === 'KeyN') {
-                this.dLight.visible = !this.dLight.visible;
+                this.sLight.visible = !this.sLight.visible;
             }
         });
     }
 
     addToScene(scene) {
-        scene.add(this.dLight);
+        scene.add(this.sLight);
 
-        let planeSize = 1.0;
-        var directionLightHelper = new THREE.DirectionalLightHelper( this.dLight, planeSize );
-        scene.add( directionLightHelper );
+        scene.add(this.sLight.target);
+
+        const spotLightHelper = new THREE.SpotLightHelper( this.sLight );
+        scene.add( spotLightHelper );
     }
 }
